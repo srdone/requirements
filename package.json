@@ -1,0 +1,15 @@
+{
+  "name": "requirements",
+  "version": "1.0.0",
+  "description": "Utility to gather scouting requirements",
+  "main": "requirements.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Stephen Done srdone@gmail.com",
+  "license": "ISC",
+  "devDependencies": {
+    "jasmine": "^2.1.1",
+    "karma": "^0.12.31"
+  }
+}

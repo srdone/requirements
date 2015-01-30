@@ -2,6 +2,7 @@ describe('The requirements object', function () {
 
   var requirement = new Requirement();
   var requirement1 = new Requirement('Attend 3 campouts', '1a', 0, 'Tenderfoot', false, 'requirememt');
+  var requirement2 = new Requirement('Cook one meal', '2', 1, 'Tenderfoot', false, 'requirement');
 
   it('should be an object', function () {
     expect(requirement).toBeObject();
@@ -43,7 +44,7 @@ describe('The requirements object', function () {
   });
 
   it('should have an array of prerequisites', function () {
-    expect(requirement.prereqs).toBeArray();
+    expect(requirement._prereqs).toBeArray();
   });
 
   it('should have a generateId function', function () {
@@ -54,10 +55,51 @@ describe('The requirements object', function () {
     expect(requirement.addPrereq).toBeFunction();
   });
 
+  it('should have a removePrereq function', function () {
+    expect(requirement.removePrereq).toBeFunction();
+  });
+
+  it('should have a getPrereqs function', function () {
+    expect(requirement.getPrereqs).toBeFunction();
+  });
+
   describe('The generateID function', function () {
     it('should generate an id by combining the award and itemNum, separated by a dash and save it into the id property', function () {
       expect(requirement1.id).toEqual('Tenderfoot-1a');
     });
+  });
+
+  describe('The addPrereq function', function () {
+
+    beforeEach(function () {
+      requirement1.addPrereq(requirement2);
+    });
+
+    afterEach(function () {
+      requirement1._prereqs = [];
+    });
+
+    it('should take a requirement object and push the id of the argument and push it onto the prereqs array', function () {
+      expect(requirement1._prereqs).toEqual(['Tenderfoot-2']);
+    });
+
+  });
+
+  describe('The removePrereq function', function () {
+
+    beforeEach(function () {
+      requirement1.addPrereq(requirement2);
+      requirement1.removePrereq(requirement2);
+    });
+
+    afterEach(function () {
+      requirement1._prereqs = [];
+    });
+
+    it('should take a requirement object and remove the id of the argument from the prereqs array', function () {
+      expect(requirement1._prereqs).toEqual([]);
+    });
+
   });
 
 });

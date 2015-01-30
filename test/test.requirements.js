@@ -43,8 +43,8 @@ describe('The requirements object', function () {
     expect(requirement.type).toBeString();
   });
 
-  it('should have an array of prerequisites', function () {
-    expect(requirement._prereqs).toBeArray();
+  it('should have an object map of prerequisites', function () {
+    expect(requirement._prereqs).toBeObject();
   });
 
   it('should have a generateId function', function () {
@@ -76,11 +76,11 @@ describe('The requirements object', function () {
     });
 
     afterEach(function () {
-      requirement1._prereqs = [];
+      requirement1._prereqs = {};
     });
 
-    it('should take a requirement object and push the id of the argument and push it onto the prereqs array', function () {
-      expect(requirement1._prereqs).toEqual(['Tenderfoot-2']);
+    it('should take a requirement object and add it to the requirement map', function () {
+      expect(requirement1._prereqs[requirement2.id]).toEqual(requirement2);
     });
 
   });
@@ -93,11 +93,31 @@ describe('The requirements object', function () {
     });
 
     afterEach(function () {
-      requirement1._prereqs = [];
+      requirement1._prereqs = {};
     });
 
-    it('should take a requirement object and remove the id of the argument from the prereqs array', function () {
-      expect(requirement1._prereqs).toEqual([]);
+    it('should take a requirement object and remove it from the _prereqs map', function () {
+      expect(requirement1._prereqs).toEqual({});
+    });
+
+  });
+
+  it('should have a prereqsComplete function', function () {
+    expect(requirement.prereqsComplete).toBeFunction();
+  });
+
+  describe('The prereqsCompete function', function () {
+
+    var reqA = new Requirement('Requirement A', 'a', 0, 'award', false, 'requirement');
+    var reqA1 = new Requirement('Requirement A1', 'a1', 0, 'award', false, 'requirement');
+    var reqA2 = new Requirement('Requirement A2', 'a2', 0, 'award', false, 'requirement');
+
+    reqA.addPrereq(reqA1);
+    reqA.addPrereq(reqA2);
+
+    it('should return true when given a reqsCompleted array that contains all ids for the prereqs for this requirement', function () {
+      var reqsCompleted = [reqA1.id, reqA2.id];
+      expect(reqA.prereqsComplete(reqsCompleted)).toBeTrue();
     });
 
   });

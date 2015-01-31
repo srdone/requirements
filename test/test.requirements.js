@@ -43,8 +43,12 @@ describe('The requirements object', function () {
     expect(requirement.type).toBeString();
   });
 
-  it('should have an object map of prerequisites', function () {
-    expect(requirement._prereqs).toBeObject();
+  it('should have an array of prerequisites', function () {
+    expect(requirement._prereqs).toBeArray();
+  });
+  
+  it('should have a parentRequirement property', function () {
+    expect(requirement.parentRequirement).toBeDefined();
   });
 
   it('should have a generateId function', function () {
@@ -76,11 +80,12 @@ describe('The requirements object', function () {
     });
 
     afterEach(function () {
-      requirement1._prereqs = {};
+      requirement1._prereqs = [];
     });
 
-    it('should take a requirement object and add it to the requirement map', function () {
-      expect(requirement1._prereqs[requirement2.id]).toEqual(requirement2);
+    it('should take a requirement object and add its id to the _prereqs array of this requirement', function () {
+      expect(requirement1._prereqs).toContain(requirement2.id);
+      expect(requirement1._prereqs.length).toBe(1);
     });
 
   });
@@ -93,11 +98,11 @@ describe('The requirements object', function () {
     });
 
     afterEach(function () {
-      requirement1._prereqs = {};
+      requirement1._prereqs = [];
     });
 
-    it('should take a requirement object and remove it from the _prereqs map', function () {
-      expect(requirement1._prereqs).toEqual({});
+    it('should take a requirement object and remove it\'s id from the _prereqs array', function () {
+      expect(requirement1._prereqs).toEqual([]);
     });
 
   });

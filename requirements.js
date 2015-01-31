@@ -5,7 +5,8 @@ var Requirement = function (desc, itemNum, order, award, isAward, type) {
   this.award = award || '';
   this.isAward = isAward || false;
   this.type = type || 'requirement';
-  this._prereqs = {};
+  this._prereqs = [];
+  this.parentRequirement = null;
 
   this.id = this.generateId();
 };
@@ -13,22 +14,22 @@ Requirement.prototype.generateId = function () {
   return this.award + '-' + this.itemNum;
 };
 Requirement.prototype.addPrereq = function (req) {
-  this._prereqs[req.id] = req;
+  this._prereqs.push(req.id);
 };
 // @param req {Requirement} A requirement object
 Requirement.prototype.removePrereq = function (req) {
-  delete this._prereqs[req.id];
+  if (this._prereqs.indexOf(req.id) !== -1) {
+    this._prereqs.splice(this._prereqs.indexOf(req.id), 1);
+  }
 };
 Requirement.prototype.getPrereqs = function () {
   return this._prereqs;
 };
 Requirement.prototype.prereqsComplete = function (reqsCompleted) {
-  for (var key in this._prereqs) {
-    if (this._prereqs.hasOwnProperty(key)) {
-      if (reqsCompleted.indexOf(key) === -1) {
+  for (var i = 0; i < this._prereqs.length; i++) {
+    if (reqsCompleted.indexOf(this._prereqs[i]) === -1) {
         return false;
-      }
     }
-    return true;
   }
+  return true;
 };

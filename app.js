@@ -1,7 +1,7 @@
 var app = angular.module('requirementsApp', []);
 
 app.controller('newReqCtrl', function ($scope) {
-
+  
   var requirements = [];
   var currentPrereqs = [];
   

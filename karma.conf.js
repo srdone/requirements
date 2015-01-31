@@ -15,6 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'bower_components/angular/angular.js',
       'node_modules/jasmine-expect/dist/*.js',
       '*.js',
       'test/**/*.js'

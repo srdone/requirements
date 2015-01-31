@@ -10,11 +10,11 @@
 
   <div class="container" ng-controller="newReqCtrl">
     <form novalidate>
-      Description: <input type="text" ng-model="requirement.desc" /><br />
-      Item Number: <input type="text" ng-model="requirement.itemNum" /><br />
-      Order: <input type="number" ng-model="requirement.order" /><br />
-      Part of Award: <input type="text" ng-model="requirement.award" /><br />
-      Is Award: <input type="checkbox" ng-model="requirement.isAward" /><br />
+      Description: <input type="text" ng-model="newRequirement.desc" /><br />
+      Item Number: <input type="text" ng-model="newRequirement.itemNum" /><br />
+      Order: <input type="number" ng-model="newRequirement.order" /><br />
+      Part of Award: <input type="text" ng-model="newRequirement.award" /><br />
+      Is Award: <input type="checkbox" ng-model="newRequirement.isAward" /><br />
       Type: <br />
       <select>
         <option>Requirement</option>
@@ -22,9 +22,14 @@
         <option>Merit Badge</option>
       </select>
       Prerequisites: <br />
+      <ul>
+        <li ng-repeat="prereq in currentPrereqs">{{prereq.id}}</li>
+      </ul>
       <select>
-        <option ng-repeat="requirement in requirementList">{{requirement}}</option>
+        <option ng-repeat="requirement in requirementList" ng-model="newPrereq">{{requirement}}</option>
       </select>
+      <button ng-click="addNewPrereq(newPrereq)">Add Prereq</button>
+      <button ng-click="addNewRequirement()">Create Requirement</button>
     </form>
   </div>
 

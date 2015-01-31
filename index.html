@@ -6,7 +6,27 @@
   <meta charset="utf8">
 </head>
 
-<body>
+<body ng-app="requirementsApp" ng-cloak>
+
+  <div class="container" ng-controller="newReqCtrl">
+    <form novalidate>
+      Description: <input type="text" ng-model="requirement.desc" /><br />
+      Item Number: <input type="text" ng-model="requirement.itemNum" /><br />
+      Order: <input type="number" ng-model="requirement.order" /><br />
+      Part of Award: <input type="text" ng-model="requirement.award" /><br />
+      Is Award: <input type="checkbox" ng-model="requirement.isAward" /><br />
+      Type: <br />
+      <select>
+        <option>Requirement</option>
+        <option>Rank</option>
+        <option>Merit Badge</option>
+      </select>
+      Prerequisites: <br />
+      <select>
+        <option ng-repeat="requirement in requirementList">{{requirement}}</option>
+      </select>
+    </form>
+  </div>
 
   <!--Bower dependencies-->
   <script src="bower_components/angular/angular.js"></script>

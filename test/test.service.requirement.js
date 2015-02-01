@@ -135,5 +135,12 @@ describe('The requirementService', function () {
     });
 
   });
+  
+  it('should throw an error if duplicate requirements (based on generated id) are attempted to be created', function () {
+    var reqB = new Requirement('Requirement B', 'b', 0, 'award', false, 'requirement');
+    e = new Error('error');
+    
+    expect(function  () {new Requirement('Requirement B', 'b', 0, 'award', false, 'requirement');}).toThrow(e);
+  });
 
 });

@@ -2,6 +2,9 @@ var app = angular.module('requirementsApp');
 
 
 app.factory('requirementService', function() {
+
+  var exisingIds = [];
+  
   var Requirement = function (desc, itemNum, order, award, isAward, type) {
     this.desc = desc || '';
     this.itemNum = itemNum || '';
@@ -15,7 +18,13 @@ app.factory('requirementService', function() {
     this.id = this.generateId();
   };
   Requirement.prototype.generateId = function () {
-    return this.award + '-' + this.itemNum;
+    var id = this.award + '-' + this.itemNum;
+    if (exisingIds.indexOf(id) === -1) {
+      exisingIds.push(id);
+      return id;
+    } else {
+      throw new Error('error');
+    }
   };
   Requirement.prototype.addPrereq = function (req) {
     this._prereqs.push(req.id);

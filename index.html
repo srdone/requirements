@@ -25,10 +25,8 @@
       <ul>
         <li ng-repeat="prereq in currentPrereqs">{{prereq.id}}</li>
       </ul>
-      <select>
-        <option ng-repeat="requirement in requirements" ng-model="newPrereq">{{requirement}}</option>
-      </select>
-      <button ng-click="addNewPrereq(newPrereq)">Add Prereq</button>
+      <select ng-options="requirement.id group by requirement.award for requirement in requirements" ng-model="selectedPrereq"></select>
+      <button ng-click="addNewPrereq(selectedPrereq)">Add Prereq</button><br />
       <button ng-click="addNewRequirement()">Create Requirement</button>
     </form>
   </div>

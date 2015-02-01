@@ -1,8 +1,16 @@
-describe('The requirements object', function () {
+describe('The requirementService', function () {
 
-  var requirement = new Requirement();
-  var requirement1 = new Requirement('Attend 3 campouts', '1a', 0, 'Tenderfoot', false, 'requirememt');
-  var requirement2 = new Requirement('Cook one meal', '2', 1, 'Tenderfoot', false, 'requirement');
+  var requirementService, Requirement, requirement, requirement1, requirement2, reqA, reqA1, reqA2;
+
+  beforeEach(module('requirementsApp'));
+
+  beforeEach(inject(function(requirementService) {
+    Requirement = requirementService;
+    console.log(Requirement);
+    requirement = new Requirement();
+    requirement1 = new Requirement('Attend 3 campouts', '1a', 0, 'Tenderfoot', false, 'requirememt');
+    requirement2 = new Requirement('Cook one meal', '2', 1, 'Tenderfoot', false, 'requirement');
+  }));
 
   it('should be an object', function () {
     expect(requirement).toBeObject();
@@ -112,13 +120,15 @@ describe('The requirements object', function () {
   });
 
   describe('The prereqsCompete function', function () {
+    
+    beforeEach(function () {
+      reqA = new Requirement('Requirement A', 'a', 0, 'award', false, 'requirement');
+      reqA1 = new Requirement('Requirement A1', 'a1', 0, 'award', false, 'requirement');
+      reqA2 = new Requirement('Requirement A2', 'a2', 0, 'award', false, 'requirement');
 
-    var reqA = new Requirement('Requirement A', 'a', 0, 'award', false, 'requirement');
-    var reqA1 = new Requirement('Requirement A1', 'a1', 0, 'award', false, 'requirement');
-    var reqA2 = new Requirement('Requirement A2', 'a2', 0, 'award', false, 'requirement');
-
-    reqA.addPrereq(reqA1);
-    reqA.addPrereq(reqA2);
+      reqA.addPrereq(reqA1);
+      reqA.addPrereq(reqA2);
+    });
 
     it('should return true when given a reqsCompleted array that contains all ids for the prereqs for this requirement', function () {
       var reqsCompleted = [reqA1.id, reqA2.id];

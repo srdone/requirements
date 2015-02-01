@@ -1,17 +1,19 @@
 describe('CreateRequirementController', function() {
-  var scope, createController;
+  var scope, controller;
+  beforeEach(function () {
+    module('requirementsApp')
+  });
   
   beforeEach(inject(function ($rootScope, $controller) {
     scope = $rootScope.$new();
     
-    createController = function () {
-      return $controller('CreateRequirementController', {
+    controller = $controller('CreateRequirementController', {
         '$scope': scope
-      });
-    };
+    });
+    
   }));
   
-  it('should have a newRequirementDesc property', function() {
-    expect(scope.newRequirementDesc).toBeDefined();
+  it('should have a newRequirement.desc property', function() {
+    expect(scope.newRequirement.desc).toBeDefined();
   });
 });

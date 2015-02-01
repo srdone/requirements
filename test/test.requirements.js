@@ -6,7 +6,6 @@ describe('The requirementService', function () {
 
   beforeEach(inject(function(requirementService) {
     Requirement = requirementService;
-    console.log(Requirement);
     requirement = new Requirement();
     requirement1 = new Requirement('Attend 3 campouts', '1a', 0, 'Tenderfoot', false, 'requirememt');
     requirement2 = new Requirement('Cook one meal', '2', 1, 'Tenderfoot', false, 'requirement');

@@ -142,12 +142,6 @@ describe('The requirementService', function () {
 
     });
   
-    it('should throw an error if duplicate requirements (based on generated id) are attempted to be created', function () {
-      var reqB = new Requirement('Requirement B', 'b', 0, 'award', false, 'requirement');
-      e = new Error('error');
-    
-      expect(function  () {new Requirement('Requirement B', 'b', 0, 'award', false, 'requirement');}).toThrow(e);
-    });
   });
   
   it('should have an addRequirement function', function () {
@@ -170,8 +164,15 @@ describe('The requirementService', function () {
     expect(getAllRequirements).toBeFunction();
   });
   
-  describe('has an add requirement func', function () {
-      
+  describe('The addRequirement function', function () {
     
+    it('should throw an error if duplicate requirements (based on id) are attempted to be added', function () {
+      var reqA = new Requirement('Requirement B', 'b', 0, 'award', false, 'requirement');
+      var reqB = new Requirement('Requirement B', 'b', 0, 'award', false, 'requirement');
+      addRequirement(reqA);
+      e = new Error('error');
+    
+      expect(function  () { addRequirement(reqB);}).toThrow(e);
+    });
   });
 });

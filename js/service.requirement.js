@@ -3,7 +3,7 @@ var app = angular.module('requirementsApp');
 
 app.factory('requirementService', function() {
 
-  var exisingIds = [];
+  var existingRequirements = [];
   
   var Requirement = function (desc, itemNum, order, award, isAward, type) {
     this.desc = desc || '';
@@ -19,12 +19,7 @@ app.factory('requirementService', function() {
   };
   Requirement.prototype.generateId = function () {
     var id = this.award + '-' + this.itemNum;
-    if (exisingIds.indexOf(id) === -1) {
-      exisingIds.push(id);
-      return id;
-    } else {
-      throw new Error('error');
-    }
+    return id;
   };
   Requirement.prototype.addPrereq = function (req) {
     this._prereqs.push(req.id);
@@ -47,8 +42,15 @@ app.factory('requirementService', function() {
     return true;
   };
   
-  var addRequirement = function () {
-  
+  var addRequirement = function (req) {
+    var existingIds = existingRequirements.map(function (current) {
+      return current.id;
+    });
+    if (existingIds.indexOf(req.id) === -1) {
+      existingRequirements.push(req);
+    } else {
+      throw new Error('error');
+    }
   };
   
   var removeRequirement = function () {

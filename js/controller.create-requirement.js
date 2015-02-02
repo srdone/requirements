@@ -10,4 +10,8 @@ app.controller('CreateRequirementController', function ($scope) {
   $scope.newRequirement.isAward = false;
   $scope.newRequirement.type = '';
   
+  $scope.createRequirement = function () {
+    alert("woo");
+  };
+  
 });

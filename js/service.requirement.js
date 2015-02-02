@@ -47,5 +47,32 @@ app.factory('requirementService', function() {
     return true;
   };
   
-  return Requirement;
+  var addRequirement = function () {
+  
+  };
+  
+  var removeRequirement = function () {
+  
+  };
+  
+  var getRequirement = function () {
+    
+  };
+  
+  var updateRequirement = function () {
+  
+  };
+  
+  var getAllRequirements = function () {
+  
+  };
+  
+  return {
+    'Requirement': Requirement,
+    'addRequirement': addRequirement,
+    'removeRequirement': removeRequirement,
+    'getRequirement': getRequirement,
+    'updateRequirement': updateRequirement,
+    'getAllRequirements': getAllRequirements
+  };
 });

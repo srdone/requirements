@@ -43,4 +43,9 @@ describe('CreateRequirementController', function() {
     expect(scope.newRequirement.type).toBeDefined();
     expect(scope.newRequirement.type).toBeEmptyString();
   });
+  
+  it('should have a createRequirement function', function () {
+    expect(scope.createRequirement).toBeFunction();
+  });
+    
 });

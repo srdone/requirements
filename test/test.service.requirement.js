@@ -4,7 +4,8 @@ describe('The requirementService', function () {
 
   beforeEach(module('requirementsApp'));
 
-  beforeEach(inject(function(requirementService) {
+  beforeEach(inject(function(_requirementService_) {
+    requirementService = _requirementService_;
     Requirement = requirementService.Requirement;
     addRequirement = requirementService.addRequirement;
     removeRequirement = requirementService.removeRequirement;
@@ -170,9 +171,93 @@ describe('The requirementService', function () {
       var reqA = new Requirement('Requirement B', 'b', 0, 'award', false, 'requirement');
       var reqB = new Requirement('Requirement B', 'b', 0, 'award', false, 'requirement');
       addRequirement(reqA);
-      e = new Error('error');
+      e = new Error('The requirement \'' + reqA.id + '\'');
     
       expect(function  () { addRequirement(reqB);}).toThrow(e);
     });
   });
+  
+  describe('The getAllRequirements function', function () {
+    
+    beforeEach(function () {
+      addRequirement(requirement1);
+      addRequirement(requirement2);
+    });
+    
+    afterEach(function() {
+      removeRequirement(requirement1);
+      removeRequirement(requirement2);
+    });
+    
+    it('should return an array of all the requirements that have been added', function () {
+      expect(getAllRequirements().length).toBe(2);
+      expect(getAllRequirements()).toContain(requirement1);
+      expect(getAllRequirements()).toContain(requirement2);
+    });
+    
+  });
+  
+  describe('The removeRequirement function', function () {
+    
+    beforeEach(function () {
+      addRequirement(requirement1);
+      addRequirement(requirement2);
+    });
+    
+    afterEach(function () {
+      removeRequirement(requirement1);
+      removeRequirement(requirement2);
+    });
+    
+    it('should remove the requirement from the list of requirements', function () {
+      removeRequirement(requirement2);
+      
+      expect(getAllRequirements().length).toBe(1);
+      expect(getAllRequirements()).toContain(requirement1);
+      expect(getAllRequirements()).not.toContain(requirement2);
+    });
+    
+  });
+  
+  describe('The getRequirement function', function () {
+  
+    var receivedRequirement;
+    
+    beforeEach(function () {
+      addRequirement(requirement1);
+    });
+    
+    afterEach(function () {
+      removeRequirement(requirement1);
+    });
+    
+    it('should return a requirement with the supplied id', function () {
+      receivedRequirement = getRequirement(requirement1.id);
+      
+      expect(receivedRequirement.id).toBe(requirement1.id);
+    });
+    
+    it('should throw an error if the requirement cannot be found', function () {
+      var getNonExistentRequirement = function () {
+        getRequirement('-99999');
+      };
+      var e = new Error('The requirement id \'-99999\' does not exist');
+      
+      expect(getNonExistentRequirement).toThrow(e);
+    });
+    
+  });
+  
+  // describe('The updateRequirement function', function () {
+//     
+//     beforeEach(function () {
+//       addRequirement(requirement1);
+//     });
+//     
+//     it('should update the requirement to the values defined in the passed in object', function () {
+//       var updates = {'
+//     });
+//     
+//   });
+  
 });

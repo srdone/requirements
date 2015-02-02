@@ -49,16 +49,27 @@ app.factory('requirementService', function() {
     if (existingIds.indexOf(req.id) === -1) {
       existingRequirements.push(req);
     } else {
-      throw new Error('error');
+      throw new Error('The requirement \'' + req.id + '\'');
     }
   };
   
-  var removeRequirement = function () {
-  
+  var removeRequirement = function (req) {
+    for (var i = 0; i < existingRequirements.length; i++) {
+      if (existingRequirements[i] === req) {
+        existingRequirements.splice(i, 1);
+        break;
+      }
+    }
   };
   
-  var getRequirement = function () {
-    
+  var getRequirement = function (id) {
+    for (var i = 0; i < existingRequirements.length; i++) {
+      if (existingRequirements[i].id === id) {
+        return existingRequirements[i];
+      }
+    }
+    //throw error if can't find the id
+    throw new Error('The requirement id \'' + id + '\' does not exist');
   };
   
   var updateRequirement = function () {
@@ -66,7 +77,7 @@ app.factory('requirementService', function() {
   };
   
   var getAllRequirements = function () {
-  
+    return existingRequirements;
   };
   
   return {

@@ -44,16 +44,33 @@ describe('RequirementController', function() {
   describe('The createNewRequirement function', function () {
     
     var newRequirement, requirementService;
-  
-    it('should call the Requirement constructor function from the requirementService', function () {
+    
+    beforeEach(function () {
       inject(function(_requirementService_) {
         requirementService = _requirementService_;
       });
       spyOn(requirementService, 'Requirement');
+    });
+  
+    it('should call the Requirement constructor function from the requirementService', function () {
+      scope.createNewRequirement();
+      
+      expect(requirementService.Requirement).toHaveBeenCalled();
+    });
+    
+    it('calls the requirement constructor using a blank template', function () {
+      scope.createNewRequirement();
+      
+      expect(requirementService.Requirement).toHaveBeenCalledWith('', '', 0, '', false, 'requirement');
+    });
+    
+    it('sets the currentRequirement to the newly created requirement', function () {
+      var fakeReturn = {fake: 'fake'};
+      requirementService.Requirement = jasmine.createSpy('requirementService.Requirement spy').and.returnValue(fakeReturn);
       
       scope.createNewRequirement();
-    
-      expect(requirementService.Requirement).toHaveBeenCalled();
+      
+      expect(scope.currentRequirement).toBe(fakeReturn);
     });
     
   });

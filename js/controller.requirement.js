@@ -11,8 +11,12 @@ app.controller('RequirementController', function ($scope, requirementService) {
     type: ''
   };
   
+  (function init() {
+    $scope.createNewRequirement();
+  });
+  
   $scope.createNewRequirement = function () {
-    requirementService.Requirement();
+    $scope.currentRequirement = requirementService.Requirement('', '', 0, '', false, 'requirement');
   };
   
 });
